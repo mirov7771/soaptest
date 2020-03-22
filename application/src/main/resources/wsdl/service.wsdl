@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions
+        xmlns="http://schemas.xmlsoap.org/wsdl/"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+        xmlns:tns="http://support.mtsbank.ru"
+        xmlns:response="http://support.mtsbank.ru/type/response"
+        xmlns:type="http://support.mtsbank.ru/type"
+        xmlns:request="http://support.mtsbank.ru/type/request"
+        targetNamespace="http://support.mtsbank.ru" name="service">
+    <types>
+        <xsd:schema
+             xmlns="http://www.w3.org/2001/XMLSchema"
+             xmlns:tns="http://www.support.mtsbank.ru"
+             targetNamespace="http://www.support.mtsbank.ru"
+             elementFormDefault="qualified">
+
+            <complexType name="serviceCall">
+                <sequence>
+                    <element type="xsd:string" name="commandtext" minOccurs="1" maxOccurs="1" />
+                    <element type="xsd:string" name="commanddata" minOccurs="1" maxOccurs="1" />
+                    <element type="tns:ContextData" name="contextdata" minOccurs="0" maxOccurs="1" />
+                </sequence>
+            </complexType>
+            <element type="tns:serviceCall" name="serviceCall"/>
+
+            <complexType name="serviceCallFault">
+                <sequence>
+                    <element type="xsd:int" name="faultcode" minOccurs="1" maxOccurs="1" />
+                    <element type="xsd:string" name="faultmessage" minOccurs="1" maxOccurs="1" />
+                </sequence>
+            </complexType>
+            <element type="tns:serviceCallFault" name="serviceCallFault" />
+
+            <complexType name="serviceCallAsync">
+                <sequence>
+                    <element type="xsd:string" name="commandtext" minOccurs="1" maxOccurs="1" />
+                    <element type="xsd:string" name="commanddata" minOccurs="1" maxOccurs="1" />
+                    <element type="tns:ContextData" name="contextdata" minOccurs="0" maxOccurs="1" />
+                </sequence>
+            </complexType>
+            <element type="tns:serviceCallAsync" name="serviceCallAsync"/>
+
+            <complexType name="serviceCallResponse">
+                <sequence>
+                    <element type="xsd:string" name="commandresult" minOccurs="1" maxOccurs="1" />
+                </sequence>
+            </complexType>
+            <element type="tns:serviceCallResponse" name="serviceCallResponse" />
+
+            <complexType name="ContextData">
+                <sequence>
+                    <element type="xsd:string" name="fromSystem" minOccurs="0" maxOccurs="1" />
+                    <element type="xsd:string" name="toSystem" minOccurs="0" maxOccurs="1" />
+                    <element type="xsd:string" name="sessionId" minOccurs="0" maxOccurs="1" />
+                    <element type="xsd:long" name="processId" minOccurs="0" maxOccurs="1" />
+                </sequence>
+            </complexType>
+            <element type="tns:ContextData" name="ContextData" />
+
+        </xsd:schema>
+    </types>
+
+    <message name="serviceCall">
+        <part name="request" element="tns:serviceCall"/>
+    </message>
+
+    <message name="serviceCallAsync">
+        <part name="request" element="tns:serviceCallAsync"/>
+    </message>
+
+    <portType name="servicePortType">
+        <operation name="serviceCall">
+            <input message="tns:serviceCall" />
+            <output message="tns:serviceCallResponse" />
+            <fault name="serviceCallFault" message="tns:serviceCallFault" />
+        </operation>
+
+        <operation name="serviceCallAsync">
+            <input message="tns:serviceCallAsync" />
+        </operation>
+    </portType>
+
+    <binding type="tns:servicePortType" name="serviceBinding">
+    <soap:binding
+            style="document"
+            transport="http://schemas.xmlsoap.org/soap/http" />
+        <operation name="serviceCall">
+            <soap:operation soapAction="http://support.mtsbank.ru/serviceCall" />
+            <input>
+                <soap:body use="literal" />
+            </input>
+            <output>
+                <soap:body use="literal" />
+            </output>
+            <fault name="serviceCallFault">
+                <soap:fault use="literal" name="serviceCallFault" />
+            </fault>
+        </operation>
+
+        <operation name="serviceCallAsync">
+            <soap:operation soapAction="http://support.mtsbank.ru/serviceCallAsync" />
+            <input>
+                <soap:body use="literal" />
+            </input>
+        </operation>
+    </binding>
+    <service name="serviceService">
+        <port binding="tns:serviceBinding" name="servicePort">
+            <soap:address location="service" />
+        </port>
+    </service>
+</definitions>

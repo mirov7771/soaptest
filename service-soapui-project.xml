@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="c9d52b30-90da-4f0b-afbf-841c7b2d3a2b" activeEnvironment="Default" name="service" resourceRoot="" soapui-version="5.5.0" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="46a307b5-aa48-4c1f-a86d-cb06556b8c07" wsaVersion="NONE" name="serviceBinding" type="wsdl" bindingName="{http://support.mtsbank.ru}serviceBinding" soapVersion="1_1" anonymous="optional" definition="http://localhost:8080/dbo-early-repayment/ws/service.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:8080/dbo-early-repayment/ws/service.wsdl"><con:part><con:url>http://localhost:8080/dbo-early-repayment/ws/service.wsdl</con:url><con:content><![CDATA[<definitions name="service" targetNamespace="http://support.mtsbank.ru" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:request="http://support.mtsbank.ru/type/request" xmlns:response="http://support.mtsbank.ru/type/response" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://support.mtsbank.ru" xmlns:type="http://support.mtsbank.ru/type" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <types>
+    <xsd:schema elementFormDefault="qualified" targetNamespace="http://www.support.mtsbank.ru" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.support.mtsbank.ru">
+      <complexType name="serviceCall">
+        <sequence>
+          <element maxOccurs="1" minOccurs="1" name="commandtext" type="xsd:string"/>
+          <element maxOccurs="1" minOccurs="1" name="commanddata" type="xsd:string"/>
+          <element maxOccurs="1" minOccurs="0" name="contextdata" type="tns:ContextData"/>
+        </sequence>
+      </complexType>
+      <element name="serviceCall" type="tns:serviceCall"/>
+      <complexType name="serviceCallFault">
+        <sequence>
+          <element maxOccurs="1" minOccurs="1" name="faultcode" type="xsd:int"/>
+          <element maxOccurs="1" minOccurs="1" name="faultmessage" type="xsd:string"/>
+        </sequence>
+      </complexType>
+      <element name="serviceCallFault" type="tns:serviceCallFault"/>
+      <complexType name="serviceCallAsync">
+        <sequence>
+          <element maxOccurs="1" minOccurs="1" name="commandtext" type="xsd:string"/>
+          <element maxOccurs="1" minOccurs="1" name="commanddata" type="xsd:string"/>
+          <element maxOccurs="1" minOccurs="0" name="contextdata" type="tns:ContextData"/>
+        </sequence>
+      </complexType>
+      <element name="serviceCallAsync" type="tns:serviceCallAsync"/>
+      <complexType name="serviceCallResponse">
+        <sequence>
+          <element maxOccurs="1" minOccurs="1" name="commandresult" type="xsd:string"/>
+        </sequence>
+      </complexType>
+      <element name="serviceCallResponse" type="tns:serviceCallResponse"/>
+      <complexType name="ContextData">
+        <sequence>
+          <element maxOccurs="1" minOccurs="0" name="fromSystem" type="xsd:string"/>
+          <element maxOccurs="1" minOccurs="0" name="toSystem" type="xsd:string"/>
+          <element maxOccurs="1" minOccurs="0" name="sessionId" type="xsd:string"/>
+          <element maxOccurs="1" minOccurs="0" name="processId" type="xsd:long"/>
+        </sequence>
+      </complexType>
+      <element name="ContextData" type="tns:ContextData"/>
+    </xsd:schema>
+  </types>
+  <message name="serviceCall">
+    <part element="tns:serviceCall" name="request"/>
+  </message>
+  <message name="serviceCallAsync">
+    <part element="tns:serviceCallAsync" name="request"/>
+  </message>
+  <portType name="servicePortType">
+    <operation name="serviceCall">
+      <input message="tns:serviceCall"/>
+      <output message="tns:serviceCallResponse"/>
+      <fault message="tns:serviceCallFault" name="serviceCallFault"/>
+    </operation>
+    <operation name="serviceCallAsync">
+      <input message="tns:serviceCallAsync"/>
+    </operation>
+  </portType>
+  <binding name="serviceBinding" type="tns:servicePortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="serviceCall">
+      <soap:operation soapAction="http://support.mtsbank.ru/serviceCall"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="serviceCallFault">
+        <soap:fault name="serviceCallFault" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="serviceCallAsync">
+      <soap:operation soapAction="http://support.mtsbank.ru/serviceCallAsync"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+    </operation>
+  </binding>
+  <service name="serviceService">
+    <port binding="tns:serviceBinding" name="servicePort">
+      <soap:address location="service"/>
+    </port>
+  </service>
+</definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>service</con:endpoint></con:endpoints><con:operation id="081fcd67-6153-4c88-9283-efb8c6335d4d" isOneWay="false" action="http://support.mtsbank.ru/serviceCall" name="serviceCall" bindingOperationName="serviceCall" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="a0c752fa-67af-4bcd-88d3-646911574f14" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/dbo-early-repayment/ws/service.wsdl</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sup="http://www.support.mtsbank.ru">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <sup:serviceCall>
+      	<sup:commandtext>testService</sup:commandtext>
+      	<sup:commanddata><![CDATA[<?xml version="1.0" encoding="UTF-8"?><note><to>Tove</to><from>Jani</from><heading>Reminder</heading><body>Don't forget me this weekend!</body></note>]]]]>><![CDATA[</sup:commanddata>
+         <sup:contextdata>
+            <sup:fromSystem>diasoft</sup:fromSystem>
+            <sup:toSystem>mtsbank</sup:toSystem>
+            <sup:sessionId>1</sup:sessionId>
+            <sup:processId>2</sup:processId>
+         </sup:contextdata>
+      </sup:serviceCall>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://support.mtsbank.ru/serviceCall"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="cbd7bbd0-22c1-43e7-a81d-223c8883f02f" isOneWay="false" action="http://support.mtsbank.ru/serviceCallAsync" name="serviceCallAsync" bindingOperationName="serviceCallAsync" type="One-Way" inputName="" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="6cee93e2-eb91-48f9-9e73-caf0f389267c" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/dbo-early-repayment/ws/service.wsdl</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sup="http://www.support.mtsbank.ru">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <sup:serviceCallAsync>
+      	<sup:commandtext>testService</sup:commandtext>
+      	<sup:commanddata><![CDATA[<?xml version="1.0" encoding="UTF-8"?><note><to>Tove</to><from>Jani</from><heading>Reminder</heading><body>Don't forget me this weekend!</body></note>]]]]>><![CDATA[</sup:commanddata>
+         <sup:contextdata>
+            <sup:fromSystem>diasoft</sup:fromSystem>
+            <sup:toSystem>mtsbank</sup:toSystem>
+            <sup:sessionId>1</sup:sessionId>
+            <sup:processId>2</sup:processId>
+         </sup:contextdata>
+      </sup:serviceCallAsync>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://support.mtsbank.ru/serviceCallAsync"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>
