@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans  xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:property-placeholder location="classpath:musicPlayer.properties"/>
+    <context:component-scan base-package="ru.armirov.springcourse.gates"/>
+
+    <!--bean id="testBean"
+          class="ru.armirov.springcourse.TestBean">
+        <constructor-arg value="PayIn"/>
+    </bean>
+    <bean id="testFactory"
+          class="ru.armirov.springcourse.factory.TestFactory"
+          factory-method="getTestFactory"></bean>
+    <bean id="classicMusicBean"
+          class="ru.armirov.springcourse.ioc.ClassicalMusic"
+          init-method="doMyInit"
+          destroy-method="destroyMyInit">
+    </bean-->
+    <!--bean id="rockMusicBean"
+          class="ru.armirov.springcourse.ioc.RockMusic">
+    </bean-->
+    <!--bean id="musicPlayer"
+          class="ru.armirov.springcourse.ioc.MusicPlayer"
+          scope="singleton"--><!--указывать не обязательно, по умолчанию scopenSingleton-->
+        <!--constructor-arg ref="rockMusicBean"/>
+    </bean>
+    <bean id="musicPlayer2"
+          class="ru.armirov.springcourse.ioc.MusicPlayer"
+          scope="prototype">
+        <constructor-arg ref="rockMusicBean"/>
+    </bean>
+    <bean id="newMusicPlayer"
+          class="ru.armirov.springcourse.ioc.MusicPlayer">
+        <property name="music" ref="classicMusicBean"/>
+        <property name="volume" value="1"/>
+        <property name="name" value="Sony"/>
+    </bean>
+    <bean id="configMusicPlayer"
+          class="ru.armirov.springcourse.ioc.MusicPlayer">
+        <property name="music" ref="rockMusicBean"/>
+        <property name="volume" value="${musicPlayer.volume}"/>
+        <property name="name" value="${musicPlayer.name}"/>
+    </bean>
+    <bean id="listMusicPlayer"
+          class="ru.armirov.springcourse.ioc.MusicPlayer">
+        <property name="musicList">
+            <list>
+                <ref bean="classicMusicBean"/>
+                <ref bean="rockMusicBean"/>
+            </list>
+        </property>
+    </bean-->
+</beans>
